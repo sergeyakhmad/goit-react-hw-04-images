@@ -1,46 +1,42 @@
-import React, { Component } from 'react';
+import { useState } from 'react';
 import { ImSearch } from 'react-icons/im';
 import { toast } from 'react-toastify';
 import s from './Searchbar.module.css';
 
-export default class Searchbar extends Component {
-  state = {
-    search: '',
+export default function Searchbar({ onSubmit }) {
+  const [search, setSearch] = useState('');
+
+  const handleChange = e => {
+    setSearch(e.currentTarget.value.toLowerCase());
   };
 
-  handleChange = e => {
-    this.setState({ search: e.currentTarget.value.toLowerCase() });
-  };
-
-  handleSabmit = e => {
+  const handleSabmit = e => {
     e.preventDefault();
 
-    if (this.state.search.trim() === '') {
+    if (search.trim() === '') {
       return toast.error('Enter something in the search');
     }
 
-    this.props.onSubmit(this.state.search);
+    onSubmit(search);
   };
 
-  render() {
-    return (
-      <header className={s.searchbar}>
-        <form className={s.form} onSubmit={this.handleSabmit}>
-          <button type="submit" className={s.button}>
-            <ImSearch />
-            <span className={s.button__label}>Search</span>
-          </button>
-          <input
-            onChange={this.handleChange}
-            className={s.input}
-            value={this.state.search}
-            type="text"
-            autoComplete="off"
-            autoFocus
-            placeholder="Search images and photos"
-          />
-        </form>
-      </header>
-    );
-  }
+  return (
+    <header className={s.searchbar}>
+      <form className={s.form} onSubmit={handleSabmit}>
+        <button type="submit" className={s.button}>
+          <ImSearch />
+          <span className={s.button__label}>Search</span>
+        </button>
+        <input
+          onChange={handleChange}
+          className={s.input}
+          value={search}
+          type="text"
+          autoComplete="off"
+          autoFocus
+          placeholder="Search images and photos"
+        />
+      </form>
+    </header>
+  );
 }
