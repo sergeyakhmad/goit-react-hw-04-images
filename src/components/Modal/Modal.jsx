@@ -11,6 +11,7 @@ export default function Modal({ onClose, children }) {
     return () => {
       window.removeEventListener('keydown', hendleKeyDown);
     };
+    // eslint-disable-next-line
   }, []);
 
   const hendleKeyDown = e => {

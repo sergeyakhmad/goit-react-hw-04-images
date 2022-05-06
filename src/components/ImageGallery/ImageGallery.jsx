@@ -26,7 +26,7 @@ export default function ImageGallery({ search }) {
       setStatus('idle');
       return;
     }
-    const requestImage = (search, page) => {
+    const requestImage = () => {
       setStatus('pending');
       imageApi
         .fetchImage(search, page)
@@ -46,7 +46,8 @@ export default function ImageGallery({ search }) {
         });
     };
 
-    requestImage(search, page);
+    requestImage(page);
+    // eslint-disable-next-line
   }, [page]);
 
   const toggleModal = e => {
